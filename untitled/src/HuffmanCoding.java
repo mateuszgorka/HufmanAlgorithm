@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class HuffmanCoding {
-    private Map<Character, String> codes = new HashMap<>();
+    private Map<Character, String> codesMap = new HashMap<>();
 
     public Map<Character, String> getCodes(String text) {
 
@@ -13,16 +13,16 @@ public class HuffmanCoding {
         // a dłuższe - rzadszym
 
 
-        Map<Character, Integer> frequencies = new HashMap<>();
+        Map<Character, Integer> frequenciesMap = new HashMap<>();
         for (char c : text.toCharArray()) {
-            frequencies.put(c, frequencies.getOrDefault(c, 0) + 1);
+            frequenciesMap.put(c, frequenciesMap.getOrDefault(c, 0) + 1);
         }
 
 
         // ->>>>> lista węzłów (do kazdego z osobna przypisywane sa znaki)
 
         List<HuffmanNode> nodes = new ArrayList<>();
-        for (Map.Entry<Character, Integer> entry : frequencies.entrySet()) {
+        for (Map.Entry<Character, Integer> entry : frequenciesMap.entrySet()) {
             nodes.add(new HuffmanNode(entry.getKey(), entry.getValue()));
         }
 
@@ -33,27 +33,27 @@ public class HuffmanCoding {
         // -> nowy wezel rodzica -> usuniete jako lewe i prawe dziecko
         // -> dodajemy nowy wezel spowrotem
 
-        while (nodes.size() > 1) {
-            nodes.sort(Comparator.comparingInt(n -> n.frequency));
-            HuffmanNode left = nodes.remove(0);
-            HuffmanNode right = nodes.remove(0);
-            HuffmanNode parent = new HuffmanNode('\0', left.frequency + right.frequency);
-            parent.left = left;
-            parent.right = right;
+        while (nodes.size() != 1) {
+            nodes.sort(Comparator.comparingInt(n -> n.frequencyOfNodes));
+            HuffmanNode leftNodes = nodes.remove(0);
+            HuffmanNode rightNodes = nodes.remove(0);
+            HuffmanNode parent = new HuffmanNode('\0', leftNodes.frequencyOfNodes + rightNodes.frequencyOfNodes);
+            parent.left = leftNodes;
+            parent.right = rightNodes;
             nodes.add(parent);
         }
 
-        buildCodes(nodes.get(0), "");
-        return codes;
+        buildCodesHuffman(nodes.get(0), "");
+        return codesMap;
     }
 
-    private void buildCodes(HuffmanNode node, String code) {
+    private void buildCodesHuffman(HuffmanNode node, String code) {
         if (node == null) return;
-        if (node.isLeaf()) {
-            codes.put(node.character, code);
+        if (node.left == null && node.right == null) {
+            codesMap.put(node.character, code);
             return;
         }
-        buildCodes(node.left, code + "0");
-        buildCodes(node.right, code + "1");
+        buildCodesHuffman(node.left, code + "0");
+        buildCodesHuffman(node.right, code + "1");
     }
 }

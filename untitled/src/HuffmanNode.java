@@ -1,14 +1,12 @@
 public class HuffmanNode {
     char character;
-    int frequency;
+    int frequencyOfNodes;
     HuffmanNode left, right;
 
     public HuffmanNode(char character, int frequency) {
         this.character = character;
-        this.frequency = frequency;
+        this.frequencyOfNodes = frequency;
     }
 
-    public boolean isLeaf() {
-        return left == null && right == null;
-    }
+
 }
