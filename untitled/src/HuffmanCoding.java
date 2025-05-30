@@ -3,7 +3,7 @@ import java.util.*;
 public class HuffmanCoding {
     private Map<Character, String> codes = new HashMap<>();
 
-    public Map<Character, String> generateCodes(String text) {
+    public Map<Character, String> getCodes(String text) {
 
 
 
