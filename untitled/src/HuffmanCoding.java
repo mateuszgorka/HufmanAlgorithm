@@ -10,7 +10,7 @@ public class HuffmanCoding {
         // -> tu sprawdzamy ile razy dana litera wystapila w tekscie wazne bo
         // w huffmanie dziala to tak to algorytm kompresji
         // bezstratnej, który przypisuje krótsze kody binarne częściej występującym znakom,
-        // a dłuższe – rzadszym
+        // a dłuższe - rzadszym
 
 
         Map<Character, Integer> frequencies = new HashMap<>();
@@ -19,10 +19,19 @@ public class HuffmanCoding {
         }
 
 
+        // ->>>>> lista węzłów (do kazdego z osobna przypisywane sa znaki)
+
         List<HuffmanNode> nodes = new ArrayList<>();
         for (Map.Entry<Character, Integer> entry : frequencies.entrySet()) {
             nodes.add(new HuffmanNode(entry.getKey(), entry.getValue()));
         }
+
+
+
+        // ->>>>>><<<><>>ulalal dopki w liscu jest wiecej niz jeden wezel
+        // -> srotujemy, ciecie dwoch najmniejszych
+        // -> nowy wezel rodzica -> usuniete jako lewe i prawe dziecko
+        // -> dodajemy nowy wezel spowrotem
 
         while (nodes.size() > 1) {
             nodes.sort(Comparator.comparingInt(n -> n.frequency));
