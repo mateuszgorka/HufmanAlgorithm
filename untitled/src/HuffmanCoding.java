@@ -4,13 +4,23 @@ public class HuffmanCoding {
     private Map<Character, String> codes = new HashMap<>();
 
     public Map<Character, String> generateCodes(String text) {
-        Map<Character, Integer> freq = new HashMap<>();
+
+
+
+        // -> tu sprawdzamy ile razy dana litera wystapila w tekscie wazne bo
+        // w huffmanie dziala to tak to algorytm kompresji
+        // bezstratnej, który przypisuje krótsze kody binarne częściej występującym znakom,
+        // a dłuższe – rzadszym
+
+
+        Map<Character, Integer> frequencies = new HashMap<>();
         for (char c : text.toCharArray()) {
-            freq.put(c, freq.getOrDefault(c, 0) + 1);
+            frequencies.put(c, frequencies.getOrDefault(c, 0) + 1);
         }
 
+
         List<HuffmanNode> nodes = new ArrayList<>();
-        for (Map.Entry<Character, Integer> entry : freq.entrySet()) {
+        for (Map.Entry<Character, Integer> entry : frequencies.entrySet()) {
             nodes.add(new HuffmanNode(entry.getKey(), entry.getValue()));
         }
 
